@@ -22,32 +22,40 @@ justify-content:space-between;
 align-items:center;
 padding:15px 20px;
 background:black;
-flex-wrap:wrap;
+position:relative;
 }
 
 header img{
-height:70px;
+height:60px;
 }
 
-header ul{
+/* MENU BUTTON */
+.menu-btn{
+font-size:28px;
+color:white;
+display:none;
+cursor:pointer;
+}
+
+/* NAV */
+nav{
+}
+
+nav ul{
 display:flex;
 list-style:none;
-gap:15px;
-flex-wrap:wrap;
-justify-content:center;
-width:100%;
-margin-top:10px;
+gap:20px;
 }
 
-header a{
+nav a{
 text-decoration:none;
 color:white;
 font-size:16px;
 }
 
-/* HERO SECTION */
+/* HERO */
 .hero{
-height:70vh;
+height:75vh;
 background:url("bcn.jpeg");
 background-size:cover;
 background-position:center;
@@ -72,12 +80,12 @@ background:rgba(0,0,0,0.5);
 }
 
 .hero h1{
-font-size:40px;
+font-size:50px;
 z-index:1;
 }
 
 .hero h2{
-font-size:22px;
+font-size:28px;
 margin-top:10px;
 z-index:1;
 }
@@ -85,9 +93,9 @@ z-index:1;
 /* GALLERY */
 .gallery{
 display:grid;
-grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));
-gap:15px;
-padding:20px;
+grid-template-columns:repeat(4,1fr);
+gap:20px;
+padding:30px;
 background:#f4f4f4;
 }
 
@@ -101,14 +109,9 @@ text-align:center;
 
 .card img{
 width:100%;
-height:200px;
+height:220px;
 object-fit:cover;
 border-radius:10px;
-}
-
-.card h3{
-font-size:14px;
-margin-top:5px;
 }
 
 /* FOOTER */
@@ -117,27 +120,54 @@ background:black;
 color:white;
 text-align:center;
 padding:15px;
-font-size:14px;
 }
 
-footer a{
-color:white;
-text-decoration:none;
+/* 🔥 MOBILE RESPONSIVE */
+@media(max-width:768px){
+
+.menu-btn{
+display:block;
 }
 
-/* 🔥 RESPONSIVE EXTRA */
-@media (min-width:768px){
+/* hide menu */
+nav{
+position:absolute;
+top:70px;
+left:0;
+width:100%;
+background:black;
+display:none;
+}
 
+nav ul{
+flex-direction:column;
+text-align:center;
+padding:10px 0;
+}
+
+/* show menu */
+nav.active{
+display:block;
+}
+
+/* hero text */
 .hero h1{
-font-size:50px;
-}
-
-.hero h2{
 font-size:28px;
 }
 
+.hero h2{
+font-size:18px;
+}
+
+/* gallery mobile */
+.gallery{
+grid-template-columns:repeat(2,1fr);
+padding:15px;
+gap:10px;
+}
+
 .card img{
-height:250px;
+height:150px;
 }
 
 }
@@ -150,10 +180,11 @@ height:250px;
 
 <header>
 
-<div>
 <img src="logo.jpg.jpeg">
-</div>
 
+<div class="menu-btn" onclick="toggleMenu()">☰</div>
+
+<nav id="nav">
 <ul>
 <li><a href="index.html">Home</a></li>
 <li><a href="memories.html">Memories</a></li>
@@ -161,6 +192,7 @@ height:250px;
 <li><a href="surprise.html">Surprise</a></li>
 <li><a href="game.html">Game</a></li>
 </ul>
+</nav>
 
 </header>
 
@@ -173,18 +205,18 @@ height:250px;
 
 <section class="gallery">
 
-<div class="card"><img src="bhumi1.jpeg"><h3>Happy Birthday Babu 💖</h3></div>
-<div class="card"><img src="2.jpeg"><h3>Happy Birthday Babu 💖</h3></div>
-<div class="card"><img src="bhumi2.jpeg"><h3>Happy Birthday Babu 💖</h3></div>
-<div class="card"><img src="6.jpeg"><h3>Happy Birthday Babu 💖</h3></div>
-<div class="card"><img src="holi1.jpeg"><h3>Happy Birthday Babu 💖</h3></div>
-<div class="card"><img src="bhumi3.jpeg"><h3>Happy Birthday Babu 💖</h3></div>
-<div class="card"><img src="4.jpeg"><h3>Happy Birthday Babu 💖</h3></div>
-<div class="card"><img src="bhumi6.jpeg"><h3>Happy Birthday Babu 💖</h3></div>
-<div class="card"><img src="bhumi4.jpeg"><h3>Happy Birthday Babu 💖</h3></div>
-<div class="card"><img src="11.JPG"><h3>Happy Birthday Babu 💖</h3></div>
-<div class="card"><img src="holi2.jpeg"><h3>Happy Birthday Babu 💖</h3></div>
-<div class="card"><img src="logo.jpg.jpeg"><h3>Happy Birthday Babu 💖</h3></div>
+<div class="card"><img src="bhumi1.jpeg"><h3>❤️</h3></div>
+<div class="card"><img src="2.jpeg"><h3>❤️</h3></div>
+<div class="card"><img src="bhumi2.jpeg"><h3>❤️</h3></div>
+<div class="card"><img src="6.jpeg"><h3>❤️</h3></div>
+<div class="card"><img src="holi1.jpeg"><h3>❤️</h3></div>
+<div class="card"><img src="bhumi3.jpeg"><h3>❤️</h3></div>
+<div class="card"><img src="4.jpeg"><h3>❤️</h3></div>
+<div class="card"><img src="bhumi6.jpeg"><h3>❤️</h3></div>
+<div class="card"><img src="bhumi4.jpeg"><h3>❤️</h3></div>
+<div class="card"><img src="11.JPG"><h3>❤️</h3></div>
+<div class="card"><img src="holi2.jpeg"><h3>❤️</h3></div>
+<div class="card"><img src="logo.jpg.jpeg"><h3>❤️</h3></div>
 
 </section>
 
@@ -193,6 +225,12 @@ height:250px;
 <footer>
 <a href="https://instagram.com">Instagram</a>
 </footer>
+
+<script>
+function toggleMenu(){
+document.getElementById("nav").classList.toggle("active");
+}
+</script>
 
 </body>
 </html>
