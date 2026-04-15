@@ -14,19 +14,6 @@ padding:0;
 box-sizing:border-box;
 font-family:Arial, Helvetica, sans-serif;
 }
-header{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-z-index:1000;
-}
-nav{
-z-index:1001;
-}
-body{
-padding-top:80px;
-}
 
 /* HEADER */
 header{
@@ -36,6 +23,7 @@ align-items:center;
 padding:15px 20px;
 background:black;
 position:relative;
+z-index:1000;
 }
 
 header img{
@@ -52,6 +40,7 @@ cursor:pointer;
 
 /* NAV */
 nav{
+transition:0.3s;
 }
 
 nav ul{
@@ -64,14 +53,17 @@ nav a{
 text-decoration:none;
 color:white;
 font-size:16px;
+transition:0.3s;
+}
+
+nav a:hover{
+color:#ff4d6d;
 }
 
 /* HERO */
 .hero{
 height:75vh;
-background:url("bcn.jpeg");
-background-size:cover;
-background-position:center;
+background:url("bcn.jpeg") no-repeat center/cover;
 display:flex;
 flex-direction:column;
 justify-content:center;
@@ -115,9 +107,14 @@ background:#f4f4f4;
 .card{
 background:white;
 padding:10px;
-border-radius:10px;
-box-shadow:0 5px 10px rgba(0,0,0,0.2);
+border-radius:12px;
+box-shadow:0 5px 15px rgba(0,0,0,0.2);
 text-align:center;
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
 }
 
 .card img{
@@ -135,6 +132,12 @@ text-align:center;
 padding:15px;
 }
 
+footer a{
+color:#ff4d6d;
+text-decoration:none;
+font-weight:bold;
+}
+
 /* 🔥 MOBILE RESPONSIVE */
 @media(max-width:768px){
 
@@ -142,7 +145,7 @@ padding:15px;
 display:block;
 }
 
-/* hide menu */
+/* NAV DROPDOWN */
 nav{
 position:absolute;
 top:70px;
@@ -150,12 +153,14 @@ left:0;
 width:100%;
 background:black;
 display:none;
+z-index:999;
 }
 
 nav ul{
 flex-direction:column;
 text-align:center;
-padding:10px 0;
+padding:15px 0;
+gap:15px;
 }
 
 /* show menu */
@@ -163,7 +168,7 @@ nav.active{
 display:block;
 }
 
-/* hero text */
+/* HERO TEXT */
 .hero h1{
 font-size:28px;
 }
@@ -172,7 +177,7 @@ font-size:28px;
 font-size:18px;
 }
 
-/* gallery mobile */
+/* GALLERY */
 .gallery{
 grid-template-columns:repeat(2,1fr);
 padding:15px;
@@ -183,6 +188,13 @@ gap:10px;
 height:150px;
 }
 
+}
+
+/* EXTRA SMALL DEVICES */
+@media(max-width:480px){
+.gallery{
+grid-template-columns:1fr;
+}
 }
 
 </style>
@@ -236,7 +248,7 @@ height:150px;
 </main>
 
 <footer>
-<a href="https://instagram.com">Instagram</a>
+<a href="https://instagram.com" target="_blank">Instagram</a>
 </footer>
 
 <script>
