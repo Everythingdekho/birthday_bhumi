@@ -25,7 +25,7 @@
 
 <h2>Snake Game 🐍</h2>
 
-<canvas id="c" width="420" height="420"></canvas>
+<canvas id="c" width="400" height="400"></canvas>
 
 <div class="controls">
   <br>
@@ -39,8 +39,8 @@
 let c = document.getElementById("c");
 let ctx = c.getContext("2d");
 
-// 🔥 BOX SIZE (snake bada ho gaya)
 let box = 40;
+let grid = 10;
 
 // images
 let snakeImg = new Image();
@@ -49,12 +49,12 @@ snakeImg.src = "snake1.png";
 let foodImg = new Image();
 foodImg.src = "food1.jpg";
 
-let snake = [{x:10, y:10}];
+let snake = [{x:5, y:5}];
 let dx = 1;
 let dy = 0;
-let food = {x:5, y:5};
+let food = {x:2, y:2};
 
-// wait for images load
+// start game after load
 snakeImg.onload = foodImg.onload = function(){
   setInterval(game,250);
 };
@@ -73,8 +73,19 @@ function down(){ if(dy!=-1){dx=0;dy=1;} }
 function left(){ if(dx!=1){dx=-1;dy=0;} }
 function right(){ if(dx!=-1){dx=1;dy=0;} }
 
+function drawTiled(img, x, y){
+  let repeat = 5;
+  let small = box / repeat;
+
+  for(let i=0;i<repeat;i++){
+    for(let j=0;j<repeat;j++){
+      ctx.drawImage(img, x + i*small, y + j*small, small, small);
+    }
+  }
+}
+
 function game(){
-  ctx.clearRect(0,0,420,420);
+  ctx.clearRect(0,0,400,400);
 
   let head = {
     x: snake[0].x + dx,
@@ -84,8 +95,8 @@ function game(){
   // eat food
   if(head.x==food.x && head.y==food.y){
     food = {
-      x: Math.floor(Math.random()*14),
-      y: Math.floor(Math.random()*14)
+      x: Math.floor(Math.random()*grid),
+      y: Math.floor(Math.random()*grid)
     };
   } else {
     snake.pop();
@@ -93,23 +104,23 @@ function game(){
 
   snake.unshift(head);
 
-  // draw snake 🐍
+  // draw snake (5x pattern)
   snake.forEach(s=>{
-    ctx.drawImage(snakeImg, s.x*box, s.y*box, box, box);
+    drawTiled(snakeImg, s.x*box, s.y*box);
   });
 
-  // draw food 🍎
-  ctx.drawImage(foodImg, food.x*box, food.y*box, box, box);
+  // draw food (5x pattern)
+  drawTiled(foodImg, food.x*box, food.y*box);
 
   // collision
-  if(head.x<0 || head.y<0 || head.x>=14 || head.y>=14){
+  if(head.x<0 || head.y<0 || head.x>=grid || head.y>=grid){
     alert("Game Over 🎂");
     resetGame();
   }
 }
 
 function resetGame(){
-  snake=[{x:7,y:7}];
+  snake=[{x:5,y:5}];
   dx=1;
   dy=0;
 }
