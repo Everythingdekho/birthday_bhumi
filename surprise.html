@@ -8,6 +8,7 @@
 
 <style>
 
+/* RESET */
 *{
 margin:0;
 padding:0;
@@ -15,31 +16,14 @@ box-sizing:border-box;
 font-family:Arial, Helvetica, sans-serif;
 }
 
-body{
-min-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-background:linear-gradient(135deg,#ff5f9e,#ffc3a0);
-overflow:hidden;
-text-align:center;
-color:white;
-padding-top:80px;
-}
-
 /* HEADER */
-
 header{
-position:fixed;
-top:0;
-width:100%;
 display:flex;
 justify-content:space-between;
 align-items:center;
 padding:15px 20px;
 background:black;
-z-index:1000;
+position:relative;
 }
 
 header img{
@@ -57,13 +41,13 @@ cursor:pointer;
 /* NAV */
 nav ul{
 display:flex;
-gap:20px;
 list-style:none;
+gap:20px;
 }
 
 nav a{
-color:white;
 text-decoration:none;
+color:white;
 font-size:16px;
 }
 
@@ -95,19 +79,29 @@ display:block;
 
 }
 
-/* TEXT */
-
-h1{
-font-size:40px;
-padding:0 10px;
+/* BODY */
+body{
+min-height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#ff5f9e,#ffc3a0);
+text-align:center;
+color:white;
 }
 
-/* GIFT BOX */
+/* CONTENT */
+h1{
+font-size:40px;
+margin-top:20px;
+}
 
+/* GIFT */
 .gift-box{
 font-size:100px;
 cursor:pointer;
-transition:0.5s;
+transition:0.3s;
 animation:shake 2s infinite;
 }
 
@@ -123,23 +117,7 @@ transform:scale(1.2);
 100%{transform:rotate(0)}
 }
 
-/* MESSAGE */
-
-.message{
-display:none;
-font-size:24px;
-margin-top:20px;
-animation:fade 2s ease;
-padding:0 15px;
-}
-
-@keyframes fade{
-from{opacity:0; transform:translateY(40px)}
-to{opacity:1; transform:translateY(0)}
-}
-
 /* CAKE */
-
 .cake{
 font-size:70px;
 display:none;
@@ -152,11 +130,18 @@ animation:bounce 2s infinite;
 50%{transform:translateY(-15px)}
 }
 
-/* HEARTS */
+/* MESSAGE */
+.message{
+display:none;
+font-size:24px;
+margin-top:20px;
+padding:0 15px;
+}
 
+/* HEART */
 .heart{
 position:absolute;
-font-size:18px;
+font-size:20px;
 animation:float linear infinite;
 }
 
@@ -165,18 +150,15 @@ animation:float linear infinite;
 transform:translateY(100vh);
 opacity:0;
 }
-50%{
-opacity:1;
-}
+50%{opacity:1;}
 100%{
 transform:translateY(-10vh);
 opacity:0;
 }
 }
 
-/* EXTRA MOBILE */
-
-@media(max-width:480px){
+/* MOBILE EXTRA */
+@media(max-width:768px){
 
 h1{
 font-size:26px;
@@ -221,13 +203,9 @@ font-size:18px;
 
 <h1>Click the Gift for Your Surprise 🎁</h1>
 
-<div class="gift-box" onclick="openGift()">
-🎁
-</div>
+<div class="gift-box" onclick="openGift()">🎁</div>
 
-<div class="cake" id="cake">
-🎂
-</div>
+<div class="cake" id="cake">🎂</div>
 
 <div class="message" id="message">
 🎉 Happy Birthday My Love 💖 <br>
@@ -247,11 +225,10 @@ document.querySelector(".gift-box").style.display="none";
 document.getElementById("cake").style.display="block";
 document.getElementById("message").style.display="block";
 
-/* controlled hearts (lag fix) */
-for(let i=0;i<25;i++){
+/* hearts */
+for(let i=0;i<20;i++){
 
 let heart=document.createElement("div");
-
 heart.className="heart";
 heart.innerHTML="💖";
 
