@@ -27,7 +27,6 @@
 
 <canvas id="c" width="400" height="400"></canvas>
 
-<!-- 📱 Controls -->
 <div class="controls">
   <br>
   <button onclick="up()">⬆️</button><br>
@@ -40,7 +39,6 @@
 let c = document.getElementById("c");
 let ctx = c.getContext("2d");
 
-// images
 let snakeImg = new Image();
 snakeImg.src = "snake1.png";
 
@@ -52,15 +50,20 @@ let dx = 1;
 let dy = 0;
 let food = {x:5, y:5};
 
-// keyboard (PC)
+// wait for images to load
+snakeImg.onload = foodImg.onload = function(){
+  setInterval(game,150);
+};
+
+// keyboard
 document.addEventListener("keydown", (e)=>{
-  if(e.key=="ArrowUp"){up();}
-  if(e.key=="ArrowDown"){down();}
-  if(e.key=="ArrowLeft"){left();}
-  if(e.key=="ArrowRight"){right();}
+  if(e.key=="ArrowUp") up();
+  if(e.key=="ArrowDown") down();
+  if(e.key=="ArrowLeft") left();
+  if(e.key=="ArrowRight") right();
 });
 
-// 📱 functions
+// controls
 function up(){ if(dy!=1){dx=0;dy=-1;} }
 function down(){ if(dy!=-1){dx=0;dy=1;} }
 function left(){ if(dx!=1){dx=-1;dy=0;} }
@@ -71,6 +74,7 @@ function game(){
 
   let head = {x: snake[0].x + dx, y: snake[0].y + dy};
 
+  // eat food
   if(head.x==food.x && head.y==food.y){
     food = {
       x: Math.floor(Math.random()*20),
@@ -90,14 +94,18 @@ function game(){
   // draw food
   ctx.drawImage(foodImg, food.x*20, food.y*20, 20, 20);
 
-  // collision
+  // wall collision
   if(head.x<0 || head.y<0 || head.x>=20 || head.y>=20){
     alert("Game Over 🎂");
-    snake=[{x:10,y:10}];
+    resetGame();
   }
 }
 
-setInterval(game,150);
+function resetGame(){
+  snake=[{x:10,y:10}];
+  dx=1;
+  dy=0;
+}
 </script>
 
 </body>
