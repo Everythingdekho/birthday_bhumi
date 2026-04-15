@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Birthday Surprise 🎉</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial;
+      background: #ffe6f0;
+      overflow: hidden;
+    }
+
+    h1 {
+      color: #ff0066;
+    }
+
+    .balloon {
+      width: 60px;
+      height: 80px;
+      background: red;
+      border-radius: 50%;
+      position: absolute;
+      cursor: pointer;
+    }
+
+    #score {
+      font-size: 20px;
+      margin: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>🎈 Pop the Balloons 🎈</h1>
+<p id="score">Score: 0</p>
+
+<script>
+let score = 0;
+
+function createBalloon() {
+  let balloon = document.createElement("div");
+  balloon.classList.add("balloon");
+
+  // random position
+  balloon.style.left = Math.random() * window.innerWidth + "px";
+  balloon.style.top = window.innerHeight + "px";
+
+  document.body.appendChild(balloon);
+
+  // move up animation
+  let move = setInterval(() => {
+    let top = parseInt(balloon.style.top);
+    if (top < -100) {
+      balloon.remove();
+      clearInterval(move);
+    } else {
+      balloon.style.top = (top - 3) + "px";
+    }
+  }, 20);
+
+  // click event
+  balloon.onclick = function() {
+    score++;
+    document.getElementById("score").innerText = "Score: " + score;
+    balloon.remove();
+
+    if(score == 10){
+      alert("🎂 Happy Birthday! 🎉 Surprise!!!");
+    }
+  }
+}
+
+// create balloons continuously
+setInterval(createBalloon, 800);
+</script>
+
+</body>
+</html>

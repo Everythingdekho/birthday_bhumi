@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mobile Shooting Game</title>
+
+  <!-- Mobile Fix -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: black;
+      touch-action: none;
+    }
+
+    canvas {
+      display: block;
+    }
+
+    #fireBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 80px;
+      height: 80px;
+      font-size: 18px;
+      background: red;
+      color: white;
+      border: none;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="gameCanvas"></canvas>
+<button id="fireBtn">🔥</button>
+
+<script>
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+
+// Resize fix
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+// Images
+let gunImg = new Image();
+gunImg.src = "gun.png";
+
+let bottleImg = new Image();
+bottleImg.src = "bottle.png";
+
+let aimImg = new Image();
+aimImg.src = "crosshair.png";
+
+let explosionImg = new Image();
+explosionImg.src = "explosion.png";
+
+// Sounds
+let gunSound = new Audio("gun.mpeg");
+let hitSound = new Audio("glass.mpeg");
+
+// Gun
+let gun = {
+  x: canvas.width / 2,
+  y: canvas.height - 100
+};
+
+// Aim
+let aim = {
+  x: canvas.width / 2,
+  y: canvas.height / 2
+};
+
+// Bottle
+let bottle = {
+  x: 100,
+  y: 100,
+  width: 60,
+  height: 100,
+  dx: 4,
+  dy: 3
+};
+
+// Bullet
+let bullet = null;
+
+// Explosion
+let explosion = null;
+
+// Score & Level
+let score = 0;
+let level = 1;
+
+// Move bottle
+function moveBottle() {
+  bottle.x += bottle.dx;
+  bottle.y += bottle.dy;
+
+  if (bottle.x < 0 || bottle.x + bottle.width > canvas.width) {
+    bottle.dx *= -1;
+  }
+  if (bottle.y < 0 || bottle.y + bottle.height > canvas.height / 2) {
+    bottle.dy *= -1;
+  }
+}
+
+// Draw
+function drawGun() {
+  ctx.drawImage(gunImg, gun.x - 50, canvas.height - 100, 100, 70);
+}
+
+function drawAim() {
+  ctx.drawImage(aimImg, aim.x - 25, aim.y - 25, 50, 50);
+}
+
+function drawBottle() {
+  ctx.drawImage(bottleImg, bottle.x, bottle.y, bottle.width, bottle.height);
+}
+
+function drawBullet() {
+  if (bullet) {
+    ctx.fillStyle = "yellow";
+    ctx.beginPath();
+    ctx.arc(bullet.x, bullet.y, 5, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+function drawExplosion() {
+  if (explosion) {
+    ctx.drawImage(explosionImg, explosion.x, explosion.y, 60, 60);
+    explosion.time--;
+    if (explosion.time <= 0) explosion = null;
+  }
+}
+
+function drawUI() {
+  ctx.fillStyle = "white";
+  ctx.font = "20px Arial";
+  ctx.fillText("Score: " + score, 20, 30);
+  ctx.fillText("Level: " + level, 20, 60);
+}
+
+// Fire
+function fire() {
+  if (!bullet) {
+    gunSound.play();
+    bullet = {
+      x: gun.x,
+      y: canvas.height - 100,
+      dx: (aim.x - gun.x) / 15,
+      dy: (aim.y - (canvas.height - 100)) / 15
+    };
+  }
+}
+
+// Update bullet
+function updateBullet() {
+  if (bullet) {
+    bullet.x += bullet.dx;
+    bullet.y += bullet.dy;
+
+    // Hit
+    if (
+      bullet.x > bottle.x &&
+      bullet.x < bottle.x + bottle.width &&
+      bullet.y > bottle.y &&
+      bullet.y < bottle.y + bottle.height
+    ) {
+      hitSound.play();
+      score++;
+
+      explosion = {
+        x: bottle.x,
+        y: bottle.y,
+        time: 10
+      };
+
+      bullet = null;
+
+      bottle.x = Math.random() * canvas.width;
+      bottle.y = Math.random() * 200;
+
+      if (score % 5 === 0) {
+        level++;
+        bottle.dx += 1;
+        bottle.dy += 1;
+      }
+    }
+
+    if (bullet.y < 0 || bullet.x < 0 || bullet.x > canvas.width) {
+      bullet = null;
+    }
+  }
+}
+
+// GAME LOOP
+function gameLoop() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  moveBottle();
+  updateBullet();
+
+  drawGun();
+  drawBottle();
+  drawAim();
+  drawBullet();
+  drawExplosion();
+  drawUI();
+
+  requestAnimationFrame(gameLoop);
+}
+
+// TOUCH AIM CONTROL (IMPORTANT)
+canvas.addEventListener("touchstart", e => {
+  let t = e.touches[0];
+  aim.x = t.clientX;
+  aim.y = t.clientY;
+});
+
+canvas.addEventListener("touchmove", e => {
+  let t = e.touches[0];
+  aim.x = t.clientX;
+  aim.y = t.clientY;
+});
+
+// Prevent scroll
+document.body.addEventListener("touchmove", e => {
+  e.preventDefault();
+}, { passive: false });
+
+// FIRE BUTTON
+document.getElementById("fireBtn").addEventListener("click", fire);
+
+// Start
+gameLoop();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Message tab</title>
+
+<style>
+
+/* RESET */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+/* BODY LOVE BACKGROUND */
+
+body{
+background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+min-height:100vh;
+}
+
+/* HEARTS BACKGROUND */
+
+body::before{
+content:"💖 💕 💗 💓 💞 💖 💕 💗 💓 💞";
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+font-size:40px;
+opacity:0.1;
+line-height:120px;
+z-index:-1;
+}
+
+/* HEADER */
+
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 40px;
+background:black;
+}
+
+header ul{
+display:flex;
+gap:20px;
+list-style:none;
+}
+
+header a{
+text-decoration:none;
+color:white;
+font-size:18px;
+}
+
+/* MESSAGE BOX */
+
+main{
+display:flex;
+justify-content:center;
+align-items:center;
+padding:60px 20px;
+}
+
+.message-box{
+max-width:900px;
+background:rgba(255,255,255,0.25);
+backdrop-filter:blur(10px);
+padding:40px;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+color:#222;
+}
+
+.message-box h1{
+text-align:center;
+margin-bottom:20px;
+font-size:35px;
+color:#c2185b;
+}
+
+.message-box h3{
+line-height:1.8;
+font-weight:normal;
+}
+<style>
+
+/* PAGE BACKGROUND */
+
+body{
+background: linear-gradient(135deg,#ff9a9e,#fad0c4);
+text-align:center;
+font-family:Arial, Helvetica, sans-serif;
+padding-top:80px;
+}
+
+/* SURPRISE BUTTON */
+
+button{
+background:#ff4081;
+color:white;
+border:none;
+padding:15px 30px;
+font-size:20px;
+border-radius:30px;
+cursor:pointer;
+transition:0.3s;
+box-shadow:0 5px 15px rgba(0,0,0,0.3);
+}
+
+button:hover{
+background:#e91e63;
+transform:scale(1.1);
+}
+
+/* VIDEO STYLE */
+
+#bdayVideo{
+margin-top:30px;
+border-radius:15px;
+box-shadow:0 10px 30px rgba(0,0,0,0.4);
+max-width:90%;
+}
+
+/* SMALL ANIMATION */
+
+button{
+animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+0%{transform:scale(1);}
+50%{transform:scale(1.05);}
+100%{transform:scale(1);}
+}
+
+
+
+/* FOOTER */
+
+footer{
+text-align:center;
+padding:20px;
+background:black;
+}
+
+footer a{
+color:white;
+text-decoration:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div>
+<img src="logo.jpg.jpeg" height="100">
+</div>
+
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="memories.html">Memories</a></li>
+<li><a href="message.html">Message</a></li>
+<li><a href="surprise.html">Surprise</a></li>
+</ul>
+
+</header>
+
+<main>
+
+<div class="message-box">
+
+<h1>Happy Birthday to the most special person in my life 💖</h1>
+
+<h3>
+
+You are not just a part of my life, you are the reason behind many of my smiles.
+I wish that every dream of yours comes true and your life is always full of happiness.
+Thank you for being so amazing.
+Have the most wonderful birthday ever. 🎂✨
+
+<br><br>
+
+आज का दिन मेरे लिए बहुत खास है, क्योंकि आज उस इंसान का जन्मदिन है जो मेरी जिंदगी को खुशियों से भर देता है।
+तुम सिर्फ मेरी जिंदगी का हिस्सा नहीं हो, बल्कि मेरी हर खुशी की वजह हो।
+
+जब भी मैं तुम्हारे बारे में सोचता हूँ, मेरे चेहरे पर अपने-आप मुस्कान आ जाती है।
+तुम्हारी हंसी, तुम्हारी बातें और तुम्हारा साथ मेरी जिंदगी को और भी खूबसूरत बना देता है।
+
+<br><br>
+
+मैं बस यही दुआ करता हूँ कि तुम्हारी जिंदगी हमेशा खुशियों, प्यार और सफलता से भरी रहे।
+तुम्हारे सारे सपने पूरे हों और तुम्हारे चेहरे पर ये प्यारी सी मुस्कान हमेशा बनी रहे।
+
+Thank you for being such a beautiful part of my life.
+मेरी जिंदगी में आने के लिए और हर पल को खास बनाने के लिए दिल से धन्यवाद।
+
+<br><br>
+
+Happy Birthday once again to the most special person in my life. 🎉❤️
+
+</h3>
+
+</div>
+
+<video id="bdayVideo" width="500" style="display:none;">
+    <source src="mainvid.mp4" type="video/mp4">
+</video>
+
+<button onclick="playVideo()">Click for Surprise ❤️</button>
+
+<script>
+function playVideo(){
+    var vid = document.getElementById("bdayVideo");
+    vid.style.display = "block";
+    vid.play();
+}
+</script>
+
+</main>
+
+<footer>
+<a href="https://instagram.com">Instagram</a>
+</footer>
+
+</body>
+</html>
