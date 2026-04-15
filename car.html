@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mobile Car Racing 🚗🔥</title>
+
+  <!-- Mobile responsive -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin:0;
+      text-align:center;
+      background:black;
+      color:white;
+      overflow:hidden;
+    }
+
+    canvas {
+      display:block;
+      margin:auto;
+      background:black;
+    }
+
+    .controls {
+      position:fixed;
+      bottom:20px;
+      width:100%;
+      display:flex;
+      justify-content:space-around;
+    }
+
+    .controls button {
+      font-size:30px;
+      padding:15px 30px;
+      border:none;
+      border-radius:10px;
+      background:#333;
+      color:white;
+    }
+
+    .controls button:active {
+      background:#555;
+    }
+  </style>
+</head>
+
+<body>
+
+<h3>🚗 Racing Game</h3>
+<canvas id="game"></canvas>
+
+<div class="controls">
+  <button id="leftBtn">⬅️</button>
+  <button id="rightBtn">➡️</button>
+</div>
+
+<script>
+let canvas = document.getElementById("game");
+let ctx = canvas.getContext("2d");
+
+// Responsive canvas
+function resizeCanvas(){
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+// Images
+let carImg = new Image();
+carImg.src = "car.png";
+
+let enemyImg = new Image();
+enemyImg.src = "enemy.png";
+
+let bgImg = new Image();
+bgImg.src = "road.png";
+
+// Player
+let car = { x: 150, y: 500, width: 50, height: 90 };
+
+// Enemies
+let enemies = [];
+for(let i=0; i<4; i++){
+  enemies.push({
+    x: Math.random()*300,
+    y: -Math.random()*600,
+    width: 50,
+    height: 90
+  });
+}
+
+let speed = 4;
+let score = 0;
+let gameOver = false;
+let bgY = 0;
+
+// Movement flags
+let moveL = false;
+let moveR = false;
+
+// Touch hold controls
+document.getElementById("leftBtn").addEventListener("touchstart", ()=>moveL=true);
+document.getElementById("leftBtn").addEventListener("touchend", ()=>moveL=false);
+
+document.getElementById("rightBtn").addEventListener("touchstart", ()=>moveR=true);
+document.getElementById("rightBtn").addEventListener("touchend", ()=>moveR=false);
+
+// Keyboard (PC)
+document.addEventListener("keydown", e=>{
+  if(e.key==="ArrowLeft") moveL=true;
+  if(e.key==="ArrowRight") moveR=true;
+});
+
+document.addEventListener("keyup", e=>{
+  if(e.key==="ArrowLeft") moveL=false;
+  if(e.key==="ArrowRight") moveR=false;
+});
+
+// Collision
+function isCollide(a, b){
+  return a.x < b.x + b.width &&
+         a.x + a.width > b.x &&
+         a.y < b.y + b.height &&
+         a.y + a.height > b.y;
+}
+
+// Game Loop
+function gameLoop(){
+
+  if(gameOver){
+    ctx.fillStyle="white";
+    ctx.font="30px Arial";
+    ctx.fillText("Game Over 💥", canvas.width/2 - 100, canvas.height/2);
+    ctx.fillText("Score: "+score, canvas.width/2 - 80, canvas.height/2 + 40);
+    return;
+  }
+
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  // Background scroll
+  bgY += speed;
+  if(bgY >= canvas.height) bgY = 0;
+
+  ctx.drawImage(bgImg, 0, bgY, canvas.width, canvas.height);
+  ctx.drawImage(bgImg, 0, bgY - canvas.height, canvas.width, canvas.height);
+
+  // Movement
+  if(moveL && car.x > 0) car.x -= 6;
+  if(moveR && car.x < canvas.width - car.width) car.x += 6;
+
+  // Player
+  ctx.drawImage(carImg, car.x, canvas.height - 120, car.width, car.height);
+
+  // Enemies
+  enemies.forEach(enemy=>{
+    ctx.drawImage(enemyImg, enemy.x, enemy.y, enemy.width, enemy.height);
+    enemy.y += speed;
+
+    if(enemy.y > canvas.height){
+      enemy.y = -100;
+      enemy.x = Math.random()*(canvas.width - 50);
+      score++;
+    }
+
+    if(isCollide(
+      {x:car.x, y:canvas.height-120, width:car.width, height:car.height},
+      enemy
+    )){
+      gameOver = true;
+    }
+  });
+
+  // Speed increase
+  if(score % 5 === 0 && score !== 0){
+    speed += 0.003;
+  }
+
+  // Score
+  ctx.fillStyle="white";
+  ctx.font="20px Arial";
+  ctx.fillText("Score: "+score, 20, 30);
+
+  requestAnimationFrame(gameLoop);
+}
+
+bgImg.onload = ()=> gameLoop();
+</script>
+
+</body>
+</html>
