@@ -8,7 +8,6 @@
 <style>
 
 /* RESET */
-
 *{
 margin:0;
 padding:0;
@@ -17,31 +16,38 @@ font-family:Arial, Helvetica, sans-serif;
 }
 
 /* HEADER */
-
 header{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:15px 40px;
-background:rgb(0, 0, 0);
+padding:15px 20px;
+background:black;
+flex-wrap:wrap;
+}
+
+header img{
+height:70px;
 }
 
 header ul{
 display:flex;
 list-style:none;
-gap:20px;
+gap:15px;
+flex-wrap:wrap;
+justify-content:center;
+width:100%;
+margin-top:10px;
 }
 
 header a{
 text-decoration:none;
 color:white;
-font-size:18px;
+font-size:16px;
 }
 
 /* HERO SECTION */
-
 .hero{
-height:80vh;
+height:70vh;
 background:url("bcn.jpeg");
 background-size:cover;
 background-position:center;
@@ -52,6 +58,7 @@ align-items:center;
 text-align:center;
 color:white;
 position:relative;
+padding:20px;
 }
 
 .hero::before{
@@ -65,24 +72,22 @@ background:rgba(0,0,0,0.5);
 }
 
 .hero h1{
-font-size:50px;
+font-size:40px;
 z-index:1;
 }
 
 .hero h2{
-font-size:30px;
+font-size:22px;
 margin-top:10px;
 z-index:1;
 }
 
 /* GALLERY */
-
 .gallery{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:20px;
-padding:40px;
+display:grid;
+grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));
+gap:15px;
+padding:20px;
 background:#f4f4f4;
 }
 
@@ -95,24 +100,46 @@ text-align:center;
 }
 
 .card img{
-width:300px;
-height:300px;
+width:100%;
+height:200px;
 object-fit:cover;
 border-radius:10px;
 }
 
-/* FOOTER */
+.card h3{
+font-size:14px;
+margin-top:5px;
+}
 
+/* FOOTER */
 footer{
 background:black;
 color:white;
 text-align:center;
-padding:20px;
+padding:15px;
+font-size:14px;
 }
 
 footer a{
 color:white;
 text-decoration:none;
+}
+
+/* 🔥 RESPONSIVE EXTRA */
+@media (min-width:768px){
+
+.hero h1{
+font-size:50px;
+}
+
+.hero h2{
+font-size:28px;
+}
+
+.card img{
+height:250px;
+}
+
 }
 
 </style>
@@ -124,7 +151,7 @@ text-decoration:none;
 <header>
 
 <div>
-<img src="logo.jpg.jpeg" height="100">
+<img src="logo.jpg.jpeg">
 </div>
 
 <ul>
@@ -137,7 +164,6 @@ text-decoration:none;
 
 </header>
 
-
 <main>
 
 <section class="hero">
@@ -147,65 +173,18 @@ text-decoration:none;
 
 <section class="gallery">
 
-<div class="card">
-<img src="bhumi1.jpeg">
-<h3>Happy Birthday Babu 💖</h3>
-</div>
-
-<div class="card">
-<img src="2.jpeg">
-<h3>Happy Birthday Babu 💖</h3>
-</div>
-
-<div class="card">
-<img src="bhumi2.jpeg">
-<h3>Happy Birthday Babu 💖</h3>
-</div>
-
-<div class="card">
-<img src="6.jpeg">
-<h3>Happy Birthday Babu 💖</h3>
-</div>
-
-<div class="card">
-<img src="holi1.jpeg">
-<h3>Happy Birthday Babu 💖</h3>
-</div>
-
-<div class="card">
-<img src="bhumi3.jpeg">
-<h3>Happy Birthday Babu 💖</h3>
-</div>
-
-<div class="card">
-<img src="4.jpeg">
-<h3>Happy Birthday Babu 💖</h3>
-</div>
-
-<div class="card">
-<img src="bhumi6.jpeg">
-<h3>Happy Birthday Babu 💖</h3>
-</div>
-
-<div class="card">
-<img src="bhumi4.jpeg">
-<h3>Happy Birthday Babu 💖</h3>
-</div>
-
-<div class="card">
-<img src="11.JPG">
-<h3>Happy Birthday Babu 💖</h3>
-</div>
-
-<div class="card">
-<img src="holi2.jpeg">
-<h3>Happy Birthday Babu 💖</h3>
-</div>
-
-<div class="card">
-<img src="logo.jpg.jpeg">
-<h3>Happy Birthday Babu 💖</h3>
-</div>
+<div class="card"><img src="bhumi1.jpeg"><h3>Happy Birthday Babu 💖</h3></div>
+<div class="card"><img src="2.jpeg"><h3>Happy Birthday Babu 💖</h3></div>
+<div class="card"><img src="bhumi2.jpeg"><h3>Happy Birthday Babu 💖</h3></div>
+<div class="card"><img src="6.jpeg"><h3>Happy Birthday Babu 💖</h3></div>
+<div class="card"><img src="holi1.jpeg"><h3>Happy Birthday Babu 💖</h3></div>
+<div class="card"><img src="bhumi3.jpeg"><h3>Happy Birthday Babu 💖</h3></div>
+<div class="card"><img src="4.jpeg"><h3>Happy Birthday Babu 💖</h3></div>
+<div class="card"><img src="bhumi6.jpeg"><h3>Happy Birthday Babu 💖</h3></div>
+<div class="card"><img src="bhumi4.jpeg"><h3>Happy Birthday Babu 💖</h3></div>
+<div class="card"><img src="11.JPG"><h3>Happy Birthday Babu 💖</h3></div>
+<div class="card"><img src="holi2.jpeg"><h3>Happy Birthday Babu 💖</h3></div>
+<div class="card"><img src="logo.jpg.jpeg"><h3>Happy Birthday Babu 💖</h3></div>
 
 </section>
 
