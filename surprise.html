@@ -16,7 +16,7 @@ font-family:Arial, Helvetica, sans-serif;
 }
 
 body{
-height:100vh;
+min-height:100vh;
 display:flex;
 flex-direction:column;
 justify-content:center;
@@ -25,42 +25,93 @@ background:linear-gradient(135deg,#ff5f9e,#ffc3a0);
 overflow:hidden;
 text-align:center;
 color:white;
+padding-top:80px;
 }
 
 /* HEADER */
 
 header{
-position:absolute;
+position:fixed;
 top:0;
 width:100%;
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:15px 40px;
+padding:15px 20px;
 background:black;
+z-index:1000;
 }
 
-header ul{
+header img{
+height:60px;
+}
+
+/* MENU BUTTON */
+.menu-btn{
+font-size:28px;
+color:white;
+display:none;
+cursor:pointer;
+}
+
+/* NAV */
+nav ul{
 display:flex;
 gap:20px;
 list-style:none;
 }
 
-header a{
+nav a{
 color:white;
 text-decoration:none;
+font-size:16px;
+}
+
+/* MOBILE NAV */
+@media(max-width:768px){
+
+.menu-btn{
+display:block;
+}
+
+nav{
+position:absolute;
+top:70px;
+left:0;
+width:100%;
+background:black;
+display:none;
+}
+
+nav ul{
+flex-direction:column;
+text-align:center;
+padding:10px 0;
+}
+
+nav.active{
+display:block;
+}
+
+}
+
+/* TEXT */
+
+h1{
+font-size:40px;
+padding:0 10px;
 }
 
 /* GIFT BOX */
 
 .gift-box{
-font-size:120px;
+font-size:100px;
 cursor:pointer;
 transition:0.5s;
 animation:shake 2s infinite;
 }
 
-.gift-box:hover{
+.gift-box:active{
 transform:scale(1.2);
 }
 
@@ -76,9 +127,10 @@ transform:scale(1.2);
 
 .message{
 display:none;
-font-size:35px;
-margin-top:30px;
+font-size:24px;
+margin-top:20px;
 animation:fade 2s ease;
+padding:0 15px;
 }
 
 @keyframes fade{
@@ -89,23 +141,23 @@ to{opacity:1; transform:translateY(0)}
 /* CAKE */
 
 .cake{
-font-size:80px;
+font-size:70px;
 display:none;
-margin-top:20px;
+margin-top:15px;
 animation:bounce 2s infinite;
 }
 
 @keyframes bounce{
 0%,100%{transform:translateY(0)}
-50%{transform:translateY(-20px)}
+50%{transform:translateY(-15px)}
 }
 
 /* HEARTS */
 
 .heart{
 position:absolute;
-font-size:20px;
-animation:float 6s linear infinite;
+font-size:18px;
+animation:float linear infinite;
 }
 
 @keyframes float{
@@ -122,6 +174,28 @@ opacity:0;
 }
 }
 
+/* EXTRA MOBILE */
+
+@media(max-width:480px){
+
+h1{
+font-size:26px;
+}
+
+.gift-box{
+font-size:80px;
+}
+
+.cake{
+font-size:60px;
+}
+
+.message{
+font-size:18px;
+}
+
+}
+
 </style>
 
 </head>
@@ -130,16 +204,18 @@ opacity:0;
 
 <header>
 
-<div>
-<img src="logo.jpg.jpeg" height="80">
-</div>
+<img src="logo.jpg.jpeg">
 
+<div class="menu-btn" onclick="toggleMenu()">☰</div>
+
+<nav id="nav">
 <ul>
 <li><a href="index.html">Home</a></li>
 <li><a href="memories.html">Memories</a></li>
 <li><a href="message.html">Message</a></li>
 <li><a href="surprise.html">Surprise</a></li>
 </ul>
+</nav>
 
 </header>
 
@@ -161,26 +237,25 @@ I love you forever ❤️
 
 <script>
 
+function toggleMenu(){
+document.getElementById("nav").classList.toggle("active");
+}
+
 function openGift(){
 
 document.querySelector(".gift-box").style.display="none";
-
 document.getElementById("cake").style.display="block";
-
 document.getElementById("message").style.display="block";
 
-/* hearts animation */
-
-for(let i=0;i<50;i++){
+/* controlled hearts (lag fix) */
+for(let i=0;i<25;i++){
 
 let heart=document.createElement("div");
 
 heart.className="heart";
-
 heart.innerHTML="💖";
 
 heart.style.left=Math.random()*100+"vw";
-
 heart.style.animationDuration=(3+Math.random()*3)+"s";
 
 document.body.appendChild(heart);
