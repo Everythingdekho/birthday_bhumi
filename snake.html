@@ -49,12 +49,18 @@ snakeImg.src = "snake1.png";
 let foodImg = new Image();
 foodImg.src = "food1.jpg";
 
-let snake = [{x:5, y:5}];
+// snake center spawn ✅
+let snake = [{x: Math.floor(grid/2), y: Math.floor(grid/2)}];
+
 let dx = 1;
 let dy = 0;
-let food = {x:2, y:2};
 
-// start game after load
+let food = {
+  x: Math.floor(Math.random()*grid),
+  y: Math.floor(Math.random()*grid)
+};
+
+// start after images load
 snakeImg.onload = foodImg.onload = function(){
   setInterval(game,250);
 };
@@ -73,6 +79,7 @@ function down(){ if(dy!=-1){dx=0;dy=1;} }
 function left(){ if(dx!=1){dx=-1;dy=0;} }
 function right(){ if(dx!=-1){dx=1;dy=0;} }
 
+// 🔥 5x image tile function
 function drawTiled(img, x, y){
   let repeat = 5;
   let small = box / repeat;
@@ -85,12 +92,19 @@ function drawTiled(img, x, y){
 }
 
 function game(){
-  ctx.clearRect(0,0,400,400);
+  ctx.clearRect(0,0,c.width,c.height); // ✅ fixed
 
   let head = {
     x: snake[0].x + dx,
     y: snake[0].y + dy
   };
+
+  // collision check BEFORE drawing ✅
+  if(head.x<0 || head.y<0 || head.x>=grid || head.y>=grid){
+    alert("Game Over 🎂");
+    resetGame();
+    return;
+  }
 
   // eat food
   if(head.x==food.x && head.y==food.y){
@@ -104,23 +118,17 @@ function game(){
 
   snake.unshift(head);
 
-  // draw snake (5x pattern)
+  // draw snake
   snake.forEach(s=>{
     drawTiled(snakeImg, s.x*box, s.y*box);
   });
 
-  // draw food (5x pattern)
+  // draw food
   drawTiled(foodImg, food.x*box, food.y*box);
-
-  // collision
-  if(head.x<0 || head.y<0 || head.x>=grid || head.y>=grid){
-    alert("Game Over 🎂");
-    resetGame();
-  }
 }
 
 function resetGame(){
-  snake=[{x:5,y:5}];
+  snake=[{x: Math.floor(grid/2), y: Math.floor(grid/2)}];
   dx=1;
   dy=0;
 }
