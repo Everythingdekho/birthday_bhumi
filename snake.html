@@ -7,16 +7,19 @@
       text-align:center;
       background:black;
       color:white;
+      font-family:Arial;
     }
 
     canvas {
       background:white;
+      border-radius:10px;
     }
 
     .controls button {
       font-size:20px;
       margin:5px;
       padding:10px 15px;
+      border-radius:10px;
     }
   </style>
 </head>
@@ -24,6 +27,7 @@
 <body>
 
 <h2>Snake Game 🐍</h2>
+<h3>Score: <span id="score">0</span></h3>
 
 <canvas id="c" width="400" height="400"></canvas>
 
@@ -42,6 +46,8 @@ let ctx = c.getContext("2d");
 let box = 40;
 let grid = 10;
 
+let score = 0;
+
 // images
 let snakeImg = new Image();
 snakeImg.src = "snake1.png";
@@ -49,21 +55,37 @@ snakeImg.src = "snake1.png";
 let foodImg = new Image();
 foodImg.src = "food1.jpg";
 
-// snake center spawn ✅
-let snake = [{x: Math.floor(grid/2), y: Math.floor(grid/2)}];
+// snake start center
+let snake = [{x: 5, y: 5}];
 
-let dx = 1;
+let dx = 0;
 let dy = 0;
 
-let food = {
-  x: Math.floor(Math.random()*grid),
-  y: Math.floor(Math.random()*grid)
-};
+// safe food spawn
+function newFood(){
+  let f;
+  do{
+    f = {
+      x: Math.floor(Math.random()*grid),
+      y: Math.floor(Math.random()*grid)
+    };
+  } while(snake.some(s => s.x==f.x && s.y==f.y));
+  return f;
+}
 
-// start after images load
-snakeImg.onload = foodImg.onload = function(){
-  setInterval(game,250);
-};
+let food = newFood();
+
+// image load sync
+let loaded = 0;
+function startGame(){
+  loaded++;
+  if(loaded == 2){
+    setInterval(game,200);
+  }
+}
+
+snakeImg.onload = startGame;
+foodImg.onload = startGame;
 
 // keyboard
 document.addEventListener("keydown", (e)=>{
@@ -79,7 +101,7 @@ function down(){ if(dy!=-1){dx=0;dy=1;} }
 function left(){ if(dx!=1){dx=-1;dy=0;} }
 function right(){ if(dx!=-1){dx=1;dy=0;} }
 
-// 🔥 5x image tile function
+// 🔥 tiled drawing (5x)
 function drawTiled(img, x, y){
   let repeat = 5;
   let small = box / repeat;
@@ -92,26 +114,39 @@ function drawTiled(img, x, y){
 }
 
 function game(){
-  ctx.clearRect(0,0,c.width,c.height); // ✅ fixed
+  ctx.clearRect(0,0,c.width,c.height);
+
+  if(dx==0 && dy==0){
+    // wait for user input
+    drawTiled(foodImg, food.x*box, food.y*box);
+    snake.forEach(s=>{
+      drawTiled(snakeImg, s.x*box, s.y*box);
+    });
+    return;
+  }
 
   let head = {
     x: snake[0].x + dx,
     y: snake[0].y + dy
   };
 
-  // collision check BEFORE drawing ✅
+  // wall collision
   if(head.x<0 || head.y<0 || head.x>=grid || head.y>=grid){
-    alert("Game Over 🎂");
-    resetGame();
+    gameOver();
+    return;
+  }
+
+  // self collision
+  if(snake.some(s => s.x==head.x && s.y==head.y)){
+    gameOver();
     return;
   }
 
   // eat food
   if(head.x==food.x && head.y==food.y){
-    food = {
-      x: Math.floor(Math.random()*grid),
-      y: Math.floor(Math.random()*grid)
-    };
+    score++;
+    document.getElementById("score").innerText = score;
+    food = newFood();
   } else {
     snake.pop();
   }
@@ -127,10 +162,18 @@ function game(){
   drawTiled(foodImg, food.x*box, food.y*box);
 }
 
+function gameOver(){
+  alert("Game Over 🎂\nScore: " + score);
+  resetGame();
+}
+
 function resetGame(){
-  snake=[{x: Math.floor(grid/2), y: Math.floor(grid/2)}];
-  dx=1;
-  dy=0;
+  snake = [{x:5,y:5}];
+  dx = 0;
+  dy = 0;
+  score = 0;
+  document.getElementById("score").innerText = score;
+  food = newFood();
 }
 </script>
 
