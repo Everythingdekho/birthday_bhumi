@@ -8,7 +8,6 @@
 
 <style>
 
-/* RESET */
 *{
 margin:0;
 padding:0;
@@ -16,106 +15,52 @@ box-sizing:border-box;
 font-family:Arial, Helvetica, sans-serif;
 }
 
-/* HEADER */
-header{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:12px 20px;
-background:black;
-z-index:1000;
-}
-
-header img{
-height:50px;
-}
-
-/* MENU BUTTON */
-.menu-btn{
-font-size:26px;
-color:white;
-display:none;
-cursor:pointer;
-}
-
-/* NAV */
-nav ul{
-display:flex;
-list-style:none;
-gap:15px;
-}
-
-nav a{
-text-decoration:none;
-color:white;
-font-size:15px;
-}
-
-/* MOBILE NAV */
-@media(max-width:768px){
-
-.menu-btn{
-display:block;
-}
-
-nav{
-position:absolute;
-top:60px;
-left:0;
-width:100%;
-background:black;
-display:none;
-}
-
-nav ul{
-flex-direction:column;
-text-align:center;
-padding:10px 0;
-}
-
-nav.active{
-display:block;
-}
-
-}
-
-/* BODY FIX */
 body{
-background:linear-gradient(135deg,#ff5f9e,#ffc3a0);
-color:white;
-text-align:center;
-}
-
-/* MAIN CONTAINER */
-.container{
-min-height:100vh;
+height:100vh;
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
-padding-top:90px; /* header space */
-padding-bottom:20px;
+background:linear-gradient(135deg,#ff5f9e,#ffc3a0);
+overflow:hidden;
+text-align:center;
+color:white;
 }
 
-/* TEXT */
-h1{
-font-size:38px;
-margin-bottom:20px;
-padding:0 10px;
+/* HEADER */
+
+header{
+position:absolute;
+top:0;
+width:100%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 40px;
+background:black;
 }
 
-/* GIFT */
+header ul{
+display:flex;
+gap:20px;
+list-style:none;
+}
+
+header a{
+color:white;
+text-decoration:none;
+}
+
+/* GIFT BOX */
+
 .gift-box{
-font-size:90px;
+font-size:120px;
 cursor:pointer;
+transition:0.5s;
 animation:shake 2s infinite;
 }
 
-.gift-box:active{
+.gift-box:hover{
 transform:scale(1.2);
 }
 
@@ -127,33 +72,40 @@ transform:scale(1.2);
 100%{transform:rotate(0)}
 }
 
-/* CAKE */
-.cake{
-font-size:65px;
+/* MESSAGE */
+
+.message{
 display:none;
-margin-top:15px;
+font-size:35px;
+margin-top:30px;
+animation:fade 2s ease;
+}
+
+@keyframes fade{
+from{opacity:0; transform:translateY(40px)}
+to{opacity:1; transform:translateY(0)}
+}
+
+/* CAKE */
+
+.cake{
+font-size:80px;
+display:none;
+margin-top:20px;
 animation:bounce 2s infinite;
 }
 
 @keyframes bounce{
 0%,100%{transform:translateY(0)}
-50%{transform:translateY(-12px)}
+50%{transform:translateY(-20px)}
 }
 
-/* MESSAGE */
-.message{
-display:none;
-font-size:22px;
-margin-top:20px;
-padding:0 15px;
-line-height:1.5;
-}
+/* HEARTS */
 
-/* HEART */
 .heart{
-position:fixed;
-font-size:18px;
-animation:float linear infinite;
+position:absolute;
+font-size:20px;
+animation:float 6s linear infinite;
 }
 
 @keyframes float{
@@ -161,32 +113,13 @@ animation:float linear infinite;
 transform:translateY(100vh);
 opacity:0;
 }
-50%{opacity:1;}
+50%{
+opacity:1;
+}
 100%{
 transform:translateY(-10vh);
 opacity:0;
 }
-}
-
-/* MOBILE EXTRA */
-@media(max-width:480px){
-
-h1{
-font-size:24px;
-}
-
-.gift-box{
-font-size:75px;
-}
-
-.cake{
-font-size:55px;
-}
-
-.message{
-font-size:16px;
-}
-
 }
 
 </style>
@@ -197,29 +130,28 @@ font-size:16px;
 
 <header>
 
-<img src="logo.jpg.jpeg">
+<div>
+<img src="logo.jpg.jpeg" height="80">
+</div>
 
-<div class="menu-btn" onclick="toggleMenu()">☰</div>
-
-<nav id="nav">
 <ul>
 <li><a href="index.html">Home</a></li>
 <li><a href="memories.html">Memories</a></li>
 <li><a href="message.html">Message</a></li>
 <li><a href="surprise.html">Surprise</a></li>
-<li><a href="game.html">Game</a></li>
 </ul>
-</nav>
 
 </header>
 
-<div class="container">
-
 <h1>Click the Gift for Your Surprise 🎁</h1>
 
-<div class="gift-box" onclick="openGift()">🎁</div>
+<div class="gift-box" onclick="openGift()">
+🎁
+</div>
 
-<div class="cake" id="cake">🎂</div>
+<div class="cake" id="cake">
+🎂
+</div>
 
 <div class="message" id="message">
 🎉 Happy Birthday My Love 💖 <br>
@@ -227,28 +159,28 @@ You are the most beautiful part of my life. <br>
 I love you forever ❤️
 </div>
 
-</div>
-
 <script>
-
-function toggleMenu(){
-document.getElementById("nav").classList.toggle("active");
-}
 
 function openGift(){
 
 document.querySelector(".gift-box").style.display="none";
+
 document.getElementById("cake").style.display="block";
+
 document.getElementById("message").style.display="block";
 
-/* smooth hearts */
-for(let i=0;i<15;i++){
+/* hearts animation */
+
+for(let i=0;i<50;i++){
 
 let heart=document.createElement("div");
+
 heart.className="heart";
+
 heart.innerHTML="💖";
 
 heart.style.left=Math.random()*100+"vw";
+
 heart.style.animationDuration=(3+Math.random()*3)+"s";
 
 document.body.appendChild(heart);
@@ -261,3 +193,6 @@ document.body.appendChild(heart);
 
 </body>
 </html>
+
+
+isko kar ab mobile friendly
