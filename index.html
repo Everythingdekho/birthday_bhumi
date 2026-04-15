@@ -8,6 +8,7 @@
 <style>
 
 /* RESET */
+
 *{
 margin:0;
 padding:0;
@@ -16,56 +17,34 @@ font-family:Arial, Helvetica, sans-serif;
 }
 
 /* HEADER */
+
 header{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:15px 20px;
-background:black;
-position:relative;
-z-index:1000;
+padding:15px 40px;
+background:rgb(0, 0, 0);
 }
 
-header img{
-height:60px;
-}
-
-/* MENU BUTTON */
-.menu-btn{
-font-size:28px;
-color:white;
-display:none;
-cursor:pointer;
-}
-
-/* NAV */
-nav{
-transition:0.3s;
-}
-
-nav ul{
+header ul{
 display:flex;
 list-style:none;
 gap:20px;
 }
 
-nav a{
+header a{
 text-decoration:none;
 color:white;
-font-size:16px;
-transition:0.3s;
+font-size:18px;
 }
 
-nav a:hover{
-color:#ff4d6d;
-}
+/* HERO SECTION */
 
-/* HERO */
 .hero{
-min-height:100vh;
-height:100dvh; /* mobile fix */
-background:url("bcn.jpeg") no-repeat center/cover;
+height:80vh;
+background:url("bcn.jpeg");
 background-size:cover;
+background-position:center;
 display:flex;
 flex-direction:column;
 justify-content:center;
@@ -73,9 +52,7 @@ align-items:center;
 text-align:center;
 color:white;
 position:relative;
-padding:20px;
 }
-
 
 .hero::before{
 content:"";
@@ -93,111 +70,49 @@ z-index:1;
 }
 
 .hero h2{
-font-size:28px;
+font-size:30px;
 margin-top:10px;
 z-index:1;
 }
 
 /* GALLERY */
+
 .gallery{
-display:grid;
-grid-template-columns:repeat(4,1fr);
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
 gap:20px;
-padding:30px;
+padding:40px;
 background:#f4f4f4;
 }
 
 .card{
 background:white;
 padding:10px;
-border-radius:12px;
-box-shadow:0 5px 15px rgba(0,0,0,0.2);
+border-radius:10px;
+box-shadow:0 5px 10px rgba(0,0,0,0.2);
 text-align:center;
-transition:0.3s;
-}
-
-.card:hover{
-transform:translateY(-5px);
 }
 
 .card img{
-width:100%;
-height:220px;
+width:300px;
+height:300px;
 object-fit:cover;
 border-radius:10px;
 }
 
 /* FOOTER */
+
 footer{
 background:black;
 color:white;
 text-align:center;
-padding:15px;
+padding:20px;
 }
 
 footer a{
-color:#ff4d6d;
+color:white;
 text-decoration:none;
-font-weight:bold;
-}
-
-/* 🔥 MOBILE RESPONSIVE */
-@media(max-width:768px){
-
-.menu-btn{
-display:block;
-}
-
-/* NAV DROPDOWN */
-nav{
-position:absolute;
-top:70px;
-left:0;
-width:100%;
-background:black;
-display:none;
-z-index:999;
-}
-
-nav ul{
-flex-direction:column;
-text-align:center;
-padding:15px 0;
-gap:15px;
-}
-
-/* show menu */
-nav.active{
-display:block;
-}
-
-/* HERO TEXT */
-.hero h1{
-font-size:28px;
-}
-
-.hero h2{
-font-size:18px;
-}
-
-/* GALLERY */
-.gallery{
-grid-template-columns:repeat(2,1fr);
-padding:15px;
-gap:10px;
-}
-
-.card img{
-height:150px;
-}
-
-}
-
-/* EXTRA SMALL DEVICES */
-@media(max-width:480px){
-.gallery{
-grid-template-columns:1fr;
-}
 }
 
 </style>
@@ -208,11 +123,10 @@ grid-template-columns:1fr;
 
 <header>
 
-<img src="logo.jpg.jpeg">
+<div>
+<img src="logo.jpg.jpeg" height="100">
+</div>
 
-<div class="menu-btn" onclick="toggleMenu()">☰</div>
-
-<nav id="nav">
 <ul>
 <li><a href="index.html">Home</a></li>
 <li><a href="memories.html">Memories</a></li>
@@ -220,9 +134,9 @@ grid-template-columns:1fr;
 <li><a href="surprise.html">Surprise</a></li>
 <li><a href="game.html">Game</a></li>
 </ul>
-</nav>
 
 </header>
+
 
 <main>
 
@@ -233,32 +147,73 @@ grid-template-columns:1fr;
 
 <section class="gallery">
 
-<div class="card"><img src="bhumi1.jpeg"><h3>❤️</h3></div>
-<div class="card"><img src="2.jpeg"><h3>❤️</h3></div>
-<div class="card"><img src="bhumi2.jpeg"><h3>❤️</h3></div>
-<div class="card"><img src="6.jpeg"><h3>❤️</h3></div>
-<div class="card"><img src="holi1.jpeg"><h3>❤️</h3></div>
-<div class="card"><img src="bhumi3.jpeg"><h3>❤️</h3></div>
-<div class="card"><img src="4.jpeg"><h3>❤️</h3></div>
-<div class="card"><img src="bhumi6.jpeg"><h3>❤️</h3></div>
-<div class="card"><img src="bhumi4.jpeg"><h3>❤️</h3></div>
-<div class="card"><img src="11.JPG"><h3>❤️</h3></div>
-<div class="card"><img src="holi2.jpeg"><h3>❤️</h3></div>
-<div class="card"><img src="logo.jpg.jpeg"><h3>❤️</h3></div>
+<div class="card">
+<img src="bhumi1.jpeg">
+<h3>Happy Birthday Babu 💖</h3>
+</div>
+
+<div class="card">
+<img src="2.jpeg">
+<h3>Happy Birthday Babu 💖</h3>
+</div>
+
+<div class="card">
+<img src="bhumi2.jpeg">
+<h3>Happy Birthday Babu 💖</h3>
+</div>
+
+<div class="card">
+<img src="6.jpeg">
+<h3>Happy Birthday Babu 💖</h3>
+</div>
+
+<div class="card">
+<img src="holi1.jpeg">
+<h3>Happy Birthday Babu 💖</h3>
+</div>
+
+<div class="card">
+<img src="bhumi3.jpeg">
+<h3>Happy Birthday Babu 💖</h3>
+</div>
+
+<div class="card">
+<img src="4.jpeg">
+<h3>Happy Birthday Babu 💖</h3>
+</div>
+
+<div class="card">
+<img src="bhumi6.jpeg">
+<h3>Happy Birthday Babu 💖</h3>
+</div>
+
+<div class="card">
+<img src="bhumi4.jpeg">
+<h3>Happy Birthday Babu 💖</h3>
+</div>
+
+<div class="card">
+<img src="11.JPG">
+<h3>Happy Birthday Babu 💖</h3>
+</div>
+
+<div class="card">
+<img src="holi2.jpeg">
+<h3>Happy Birthday Babu 💖</h3>
+</div>
+
+<div class="card">
+<img src="logo.jpg.jpeg">
+<h3>Happy Birthday Babu 💖</h3>
+</div>
 
 </section>
 
 </main>
 
 <footer>
-<a href="https://instagram.com" target="_blank">Instagram</a>
+<a href="https://instagram.com">Instagram</a>
 </footer>
-
-<script>
-function toggleMenu(){
-document.getElementById("nav").classList.toggle("active");
-}
-</script>
 
 </body>
 </html>
